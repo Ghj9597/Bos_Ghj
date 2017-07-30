@@ -1,13 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>cn.itcast.maven</groupId>
-  <artifactId>common_parent</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <name>common_parent</name>
-  <description>bos v2.0综合平台的公共父项目，用于统一依赖管理</description>
-  
- <properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cn.itcast.maven</groupId>
+	<artifactId>common_parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>common_parent</name>
+	<description>bos v2.0综合平台的公共父项目，用于统一依赖管理</description>
+
+	<properties>
 		<spring.version>4.1.7.RELEASE</spring.version>
 		<struts2.version>2.3.24</struts2.version>
 		<hibernate.version>5.0.1.Final</hibernate.version>
@@ -56,7 +57,7 @@
 			<artifactId>spring-orm</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jms</artifactId>
@@ -68,20 +69,20 @@
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<!-- spring data jpa 数据库持久层 -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
 			<version>${springdatajpa.version}</version>
 		</dependency>
-		
+
 		<!-- 消息队列 MQ -->
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
@@ -117,7 +118,7 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-		
+
 		<!-- 数据库连接池 -->
 		<dependency>
 			<groupId>c3p0</groupId>
@@ -125,7 +126,7 @@
 			<version>${c3p0.version}</version>
 		</dependency>
 
-		<!-- 日志框架  -->
+		<!-- 日志框架 -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -152,14 +153,14 @@
 			<version>${springdataredis.version}</version>
 		</dependency>
 
-		<!-- oracle数据库驱动，需要手动安装  -->
+		<!-- oracle数据库驱动，需要手动安装 -->
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
 			<version>11.2.0.1.0</version>
 		</dependency>
 
-		<!-- Excel解析工具类  -->
+		<!-- Excel解析工具类 -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
@@ -175,7 +176,7 @@
 			<artifactId>poi-ooxml-schemas</artifactId>
 			<version>${poi.version}</version>
 		</dependency>
-		
+
 		<!-- Servlet、JSP -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -184,21 +185,21 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- 单元测试  -->
+		<!-- 单元测试 -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- 导入webservice依赖 -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-frontend-jaxws</artifactId>
 			<version>${cxf.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http</artifactId>
@@ -215,14 +216,16 @@
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-rs-client</artifactId>
 			<version>${cxf.version}</version>
-		</dependency>	
-		
+		</dependency>
+
+		<!-- 扩展json提供者 -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-rs-extension-providers</artifactId>
-			<version>${cxf.version}</version>
+			<version>3.0.1</version>
 		</dependency>
-
+	
+		<!-- 转换json工具包，被extension providers 依赖 -->
 		<dependency>
 			<groupId>org.codehaus.jettison</groupId>
 			<artifactId>jettison</artifactId>
@@ -231,11 +234,21 @@
 
 		<!-- 对象转为json 工具包 -->
 		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-json-plugin</artifactId>
+			<version>${struts2.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.1.37</version>
 		</dependency>
-
+		<!-- 引入pinyin4J的依赖包 -->
+		<dependency>
+			<groupId>com.belerweb</groupId>
+			<artifactId>pinyin4j</artifactId>
+			<version>2.5.0</version>
+		</dependency>
 		<dependency>
 			<groupId>com.colobu</groupId>
 			<artifactId>fastjson-jaxrs-json-provider</artifactId>
@@ -261,5 +274,5 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-  
+
 </project>

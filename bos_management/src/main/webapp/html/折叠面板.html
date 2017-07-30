@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/jquery-1.8.3.js" ></script>
+    <script type="text/javascript" src="../js/easyui/jquery.easyui.min.js" ></script>
+    <script type="text/javascript" src="../js/easyui/locale/easyui-lang-zh_CN.js" ></script>
+    <link rel="stylesheet" href="../js/easyui/themes/default/easyui.css" />
+    <link rel="stylesheet" href="../js/easyui/themes/icon.css" />
+</head>
+<body class="easyui-layout">
+<!--给西部区域添加折叠面板-->
+    <div data-options="region:'north'" style="height:50px ">北部面板</div>
+    <div data-options="region:'south'" style="height: 50px">南部面板</div>
+    <div data-options="region:'center'">中部面板</div>
+    <div data-options="region:'east'" style="width: 180px">东部面板</div>
+    <div data-options="region:'west',title:'菜单'" style="width: 100px">
+        <div class="easyui-accordion"  data-options="fit:true">
+            <div  title="折叠面板1"></div>
+            <div title="折叠面板2"></div>
+        </div>
+    </div>
+</body>
+</html>
