@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cn.itcast.crm.domain.Customer;
 import cn.itclass.Service.CustomerService;
 import cn.itclass.dao.CustomerRepository;
-@Service
+@Service("customerService")
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
 	@Autowired
@@ -34,13 +34,29 @@ public class CustomerServiceImpl implements CustomerService {
 		customerRepository.updataFixedAreaIdNull(fixedAreaId);
 		System.out.println("fixedAreaId值是=====================>>>>>>>>>>>>"+fixedAreaId);
 		System.out.println("里边值是=====================>>>>>>>>>>>>"+customersId);
-		if(customersId==null&&customersId==""&&"null".equals(customersId)){
+		if(customersId!=null&&customersId!=""&&!"null".equals(customersId)){
 			String[] sp = customersId.split(",");
 			for (String st : sp) {
 				int parseInt = Integer.parseInt(st);
 				customerRepository.updateCustomerFixedAreaId(fixedAreaId,parseInt);
 			}
 		}
+	}
+
+	@Override
+	public Customer findByTelephone(String telephone) {
+		Customer customer=customerRepository.findByTelephone(telephone);
+		return customer;
+	}
+
+	@Override
+	public void activeMail(String telephone) {
+		customerRepository.activeMail(telephone);
+	}
+
+	@Override
+	public void saveCustomers(Customer customer) {
+		customerRepository.save(customer);
 	}
 
 }

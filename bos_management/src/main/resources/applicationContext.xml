@@ -44,8 +44,10 @@
 				<property name="databasePlatform" value="org.hibernate.dialect.Oracle10gDialect" />
 				<!-- 配置显示sQl语句 -->
 				<property name="showSql" value="true" />
+				<!--<property name="generateDdl" value="true"/>-->
 			</bean>
 		</property>
+
 		<!-- 配置jpa方言 -->
 		<property name="jpaDialect">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
@@ -57,8 +59,7 @@
 				<entry key="hibernate.default_batch_fetch_size" value="16" />
 				<entry key="hibernate.max_fetch_depth" value="2" />
 				<entry key="hibernate.generate_statistics" value="true" />
-				<entry key="hibernate.bytecode.use_reflection_optimizer"
-					value="true" />
+				<entry key="hibernate.bytecode.use_reflection_optimizer" value="true" />
 				<entry key="hibernate.cache.use_second_level_cache" value="false" />
 				<entry key="hibernate.cache.use_query_cache" value="false" />
 			</map>
@@ -73,4 +74,5 @@
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	<!-- 开启Spring-data-Jpa的包扫描 -->
 	<jpa:repositories base-package="cn.itcast"></jpa:repositories>
+	<import resource="applicationContext-webService.xml"/>
 </beans>

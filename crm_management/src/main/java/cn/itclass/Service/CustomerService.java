@@ -2,13 +2,8 @@ package cn.itclass.Service;
 
 import java.util.List;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.annotation.PostConstruct;
+import javax.ws.rs.*;
 
 import org.springframework.stereotype.Service;
 
@@ -36,4 +31,22 @@ public interface CustomerService {
 	@PUT
 	@Consumes({ "application/xml", "application/json"})
 	public void bindingCustomers(@QueryParam("customersId")String customersId,@QueryParam("fixedAreaId")String fixedAreaId);
+
+	@Path("/findCustomer/{telephone}")
+	@GET
+	@Consumes({ "application/xml", "application/json"})
+	@Produces({ "application/xml", "application/json" })
+	public Customer findByTelephone( @PathParam("telephone")String telephone);
+
+	@Path("/activeMail/{telephone}")
+	@POST
+	@Consumes({ "application/xml", "application/json"})
+	@Produces({ "application/xml", "application/json" })
+	public void activeMail(@PathParam("telephone")String telephone);
+
+	@Path("/saveCustomer")
+	@POST
+	@Consumes({ "application/xml", "application/json"})
+	@Produces({ "application/xml", "application/json" })
+	public void saveCustomers(Customer customer);
 }

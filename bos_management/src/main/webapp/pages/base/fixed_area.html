@@ -125,6 +125,9 @@
 						// 只选择了一个定区
 						// 弹出定区关联快递员 窗口 
 						$("#courierWindow").window('open');
+						//将定区ID注入隐藏的hidden中
+						$("#courierFixedAreaId").val(rows[0].id);
+
 					} else {
 						// 没有选中定区，或者选择 了多个定区
 						$.messager.alert("警告", "关联快递员,只能（必须）选择一个定区", "warning");
@@ -241,7 +244,15 @@
 					// 选中所有 已关联定区客户select中选项 
 					$("#associationSelect option").attr("selected","selected");
 					$("#customerForm").submit();
-				});		
+				});
+
+				$("#associationCourierBtn").click(function () {
+                    if($("#courierForm").form('validate')){
+                        $("#courierForm").submit();
+                    }else{
+                        $.messager.alert("警告", "必须选择才能提交", "warning");
+                    }
+                });
 			});
 
 			function doDblClickRow() {
@@ -538,7 +549,7 @@
 		<!-- 关联快递员窗口 -->
 		<div class="easyui-window" title="关联快递员窗口" id="courierWindow" modal="true" collapsible="false" closed="true" minimizable="false" maximizable="false" style="top:20px;left:200px;width: 700px;height: 300px;">
 			<div style="overflow:auto;padding:5px;" border="false">
-				<form id="courierForm" action="../../fixedArea_associationCourierToFixedArea.action" method="post">
+				<form id="courierForm" action="../../fixedArea/boundCourierTakeTime" method="post">
 					<table class="table-edit" width="80%" align="center">
 						<tr class="title">
 							<td colspan="2">关联快递员</td>
@@ -548,13 +559,13 @@
 							<td>
 								<!-- 存放定区编号 -->
 								<input type="hidden" name="id" id="courierFixedAreaId" />
-								<input type="text" name="courierId" class="easyui-combobox" required="true" />
+								<input type="text" name="courierId" class="easyui-combobox" data-options="url:'../../courier/findNoFixed',valueField:'id',textField:'nameCompany'", required="true" />
 							</td>
 						</tr>
 						<tr>
 							<td>选择收派时间</td>
 							<td>
-								<input type="text" name="takeTimeId" class="easyui-combobox" required="true" />
+								<input type="text" name="takeTimeId" class="easyui-combobox" data-options="url:'../../takeTime/findAll',valueField:'id',textField:'company'" required='true'/>
 							</td>
 						</tr>
 						<tr>
