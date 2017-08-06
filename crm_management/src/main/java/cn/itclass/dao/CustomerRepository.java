@@ -14,17 +14,19 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>, Jp
 
     List<Customer> findByFixedAreaId(String fixedAreaId);
 
-    @Query("update Customer set fixedAreaId=null where fixedAreaId=?")
+    @Query("update Customer set fixedAreaId=null where fixedAreaId=?1")
     @Modifying
     void updataFixedAreaIdNull(String fixedAreaId);
 
-    @Query("update Customer set fixedAreaId=? where id=?")
+    @Query("update Customer set fixedAreaId=?1 where id=?2")
     @Modifying
     void updateCustomerFixedAreaId(String fixedAreaId, int customerId);
 
     Customer findByTelephone(String telephone);
 
-    @Query("update Customer set type=1 where telephone=?")
+    @Query("update Customer set type=1 where telephone=?1")
     @Modifying
     void activeMail(String telephone);
+
+    Customer findByTelephoneAndPassword(String telephone, String passworld);
 }

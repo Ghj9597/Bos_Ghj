@@ -59,4 +59,10 @@ public class CustomerServiceImpl implements CustomerService {
 		customerRepository.save(customer);
 	}
 
+	@Override
+	public Customer logIn(String telephone, String passworld) {
+		Customer customer=customerRepository.findByTelephoneAndPassword(telephone,passworld);
+		return customer;
+	}
+
 }

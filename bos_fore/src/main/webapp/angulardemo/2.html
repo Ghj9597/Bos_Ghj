@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/angular.min.js"></script>
+    <script type="text/javascript" >
+        var myapp=angular.module("myNg",[]);
+        myapp.controller("myController",["$scope",function($scope){
+            $scope.clearVal=function(){
+                if($scope.name123=="刘康"){
+
+                    $scope.name123="九期第一喷:++++++>>>>>>>>>>>"+$scope.name123;
+                }else{
+                    $scope.name123="九期第一帅"+$scope.name123;
+                }
+
+            }
+        }]);
+    </script>
+</head>
+
+<body ng-app="myNg" ng-controller="myController">
+    <input type="text" name="xx" ng-model="name123"/><input type="button" ng-click="clearVal()" value="验证"/>
+    <h1 ng-bind="name123"></h1>
+</body>
+
+</html>

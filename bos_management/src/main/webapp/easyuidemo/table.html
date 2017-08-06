@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>layout布局页面</title>
+		<script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+		<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+		<link rel="stylesheet" href="../js/easyui/themes/default/easyui.css" />
+		<link rel="stylesheet" href="../js/easyui/themes/icon.css" />
+		<script>
+			$(function() {
+				$("#mytable").datagrid({
+					/*传入设置的属性*/
+					/*给显示列表添加tobal点击按钮*/
+					columns: [
+						[{
+							field: 'id',
+							checkbox: true
+						}, {
+							field: 'name',
+							title: '标准名称',
+							width: 120,
+							align: 'center'
+						}, {
+							field: 'minWeight',
+							title: '最小重量',
+							width: 120,
+							align: 'center'
+						}, {
+							field: 'maxWeight',
+							title: '最大重量',
+							width: 120,
+							align: 'center'
+						}, {
+							field: 'minLength',
+							title: '最小长度',
+							width: 120,
+							align: 'center'
+						}, {
+							field: 'maxLength',
+							title: '最大长度',
+							width: 120,
+							align: 'center'
+						}, {
+							field: 'operator',
+							title: '操作人',
+							width: 120,
+							align: 'center'
+						}, {
+							field: 'operatingTime',
+							title: '操作时间',
+							width: 120,
+							align: 'center'
+						}, {
+							field: 'company',
+							title: '操作单位',
+							width: 120,
+							align: 'center'
+						}]
+					],
+					url: "../standard/findAll",
+					pagination: true
+				});
+			});
+
+			var toolbar = [{
+					id: 'button-add',
+					text: '增加',
+					iconCls: 'icon-add',
+					handler: function() {
+						$("#standardWindow").window('open');
+					}
+				},
+				{
+					id: 'button-edit',
+					text: '修改',
+					iconCls: 'icon-edit',
+					handler: function() {
+						/*在这里进行修改操作在点击时触发事件进行表单回显示操作*/
+					}
+				}
+			];
+		</script>
+	</head>
+
+	<body>
+		<table id="mytable"></table>
+	</body>
+
+</html>

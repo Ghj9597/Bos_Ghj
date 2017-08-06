@@ -49,4 +49,10 @@ public interface CustomerService {
 	@Consumes({ "application/xml", "application/json"})
 	@Produces({ "application/xml", "application/json" })
 	public void saveCustomers(Customer customer);
+
+	@Path("/login")
+	@GET
+	@Consumes({ "application/xml", "application/json"})
+	@Produces({ "application/xml", "application/json" })
+	public Customer logIn(@QueryParam("telephone") String telephone ,@QueryParam("password") String password);
 }

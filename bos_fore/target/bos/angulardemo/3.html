@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap/bootstrap.css" />
+    <script type="text/javascript" src="../js/angular.min.js"></script>
+    <script type="text/javascript">
+        var myApp=angular.module("myNg",[]);
+        myApp.controller("myController",["$scope","$http",function ($scope,$http) {
+            $scope.currentPage = 1; // 当前页
+            $scope.pageSize = 4; // 每页记录数
+            $scope.totalCount = 0; // 总记录数
+            $scope.totalPages = 0; // 总页数
+            $scope.previousPage=function() {
+                $scope.selectPage($scope.currentPage-1);
+            }
+
+            $scope.nextPage=function() {
+                console.log("1.."+$scope.currentPage);
+                $scope.selectPage($scope.currentPage+1);
+            }
+
+            $scope.selectPage=function (page) {
+                console.log("2..."+$scope.currentPage);
+                console.log("3..."+page);
+                if ($scope.totalPages!=0&&(page<1||page>$scope.totalPages)){
+                    return;
+                }
+                $http({
+                    method:'GET',
+                    url:"./6_"+page+".json",
+                    params:{
+                        "page":page,
+                        "pageSize":$scope.pageSize
+                    }
+                }).success(function (data) {
+                    /*将分页后的数据绑定入文件*/
+                    $scope.products=data.products;
+                    /*计算出总页数*/
+                    /*设置当前页*/
+                    /*设置总页数*/
+                    $scope.currentPage=page;
+                    console.log("$scope.currentPage=page  "+$scope.currentPage);
+                    $scope.totalCount=data.totalCount;
+                    $scope.totalPages=Math.ceil(data.totalCount/$scope.pageSize);
+                    /*开始计算分页条的功能,第一页等于当前页数减五*/
+                    var begin=$scope.currentPage-5;
+                    if(begin<1){
+                        begin=1;/*首页不可以小于1*/
+                    }
+                    /*根据首页计算尾页*/
+                    var end=begin+9;
+                    /*尾页不能大于总页数*/
+                    if(end>$scope.totalPages){
+                        end=$scope.totalPages;
+                    }
+                    /*根据尾页的页数去更新首页避免错误*/
+                    begin=end-9;
+                    if(begin<1){
+                        begin=1;/*首页不可以小于1*/
+                    }
+                    $scope.pageList=new Array();
+                    /*遍历得到每一页保存进入PageList数组*/
+                    for(var i=begin ; i<=end ;i++){
+                        $scope.pageList.push(i);
+                    }
+                });
+
+            }
+            $scope.isActivePage=function (page) {
+                return $scope.currentPage==page;
+            }
+            $scope.selectPage(1);
+        }]);
+    </script>
+</head>
+<body ng-app="myNg" ng-controller="myController">
+    <!--循环显示工具栏-->
+    <table class="table table-bordered">
+        <tr>
+            <th>商品序号</th>
+            <th>商品id</th>
+            <th>商品名称</th>
+            <th>商品售价</th>
+        </tr>
+        <tr ng-repeat="product in products">
+            <td>{{$index+1}}</td>
+            <td>{{product.id}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.price}}</td>
+        </tr>
+    </table>
+    <!--分页工具条-->
+    <ur class="pagination pull-right">
+        <li><a href="JavaScript:void(0)" ng-click="previousPage()">上一页</a></li>
+        <li ng-repeat="page in pageList" ng-class="{active: isActivePage(page)}">
+            <a href="JavaScript:void(0)" ng-click="selectPage(page)">{{page}}</a>
+        </li>
+        <li><a ng-click="nextPage()">下一页</a></li>
+    </ur>
+</body>
+</html>
