@@ -76,4 +76,5 @@
 	<jpa:repositories base-package="cn.itcast"></jpa:repositories>
 	<import resource="applicationContext-webService.xml"/>
 	<import resource="applicationContext-quartz.xml"/>
+	<import resource="applicationContext-mq.xml"/>
 </beans>

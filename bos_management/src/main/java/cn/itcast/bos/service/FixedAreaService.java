@@ -14,4 +14,6 @@ public interface FixedAreaService {
 			Pageable pageable);
 
     void boundCourierTakeTime(int courierId, int takeTimeId, String id1);
+
+
 }

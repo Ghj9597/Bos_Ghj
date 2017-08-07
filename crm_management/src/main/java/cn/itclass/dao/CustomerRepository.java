@@ -29,4 +29,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>, Jp
     void activeMail(String telephone);
 
     Customer findByTelephoneAndPassword(String telephone, String passworld);
+    @Query("select  fixedAreaId from Customer where address=?1")
+    String findFixedAreaIdByAddress(String address);
 }

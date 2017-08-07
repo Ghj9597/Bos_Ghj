@@ -1,4 +1,5 @@
 cn\itclass\utiles\MailUtils.class
+cn\itclass\web\action\OrderAction.class
 cn\itclass\web\action\PromotionAction.class
 cn\itclass\web\action\CustomerAction.class
 cn\itclass\web\action\cn\itclass\web\action\base\BaseAction.class

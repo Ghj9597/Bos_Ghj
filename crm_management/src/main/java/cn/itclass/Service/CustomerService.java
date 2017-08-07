@@ -55,4 +55,10 @@ public interface CustomerService {
 	@Consumes({ "application/xml", "application/json"})
 	@Produces({ "application/xml", "application/json" })
 	public Customer logIn(@QueryParam("telephone") String telephone ,@QueryParam("password") String password);
+
+	@Path("/findFixedAreaIdByAddress")
+	@GET
+	@Consumes({ "application/xml", "application/json"})
+	@Produces({ "application/xml", "application/json" })
+	public String findFixedAreaIdByAddress(@QueryParam("address") String address);
 }

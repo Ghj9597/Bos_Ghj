@@ -7,4 +7,5 @@ import cn.itcast.bos.domain.base.FixedArea;
 
 public interface FixedAreaDao extends JpaRepository<FixedArea,String> ,JpaSpecificationExecutor<FixedArea>{
 
+
 }

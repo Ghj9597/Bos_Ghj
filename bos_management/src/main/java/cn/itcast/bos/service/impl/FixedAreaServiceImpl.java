@@ -43,4 +43,5 @@ public class FixedAreaServiceImpl implements FixedAreaService {
 		courier.setTakeTime(takeTime);
 	}
 
+
 }
