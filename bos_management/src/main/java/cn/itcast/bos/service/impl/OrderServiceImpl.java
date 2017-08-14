@@ -51,6 +51,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDao orderDao;
     //注入AreaDao;
+    @Autowired
     private AreaDao areaDao;
 
     //抽取出来封装方法保存订单;
@@ -99,15 +100,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void add(Order order) {
-
+        System.out.println(order.getSendArea().getProvince());
+        System.out.println(order.getSendArea().getCity());
+        System.out.println(order.getSendArea().getDistrict());
         // 寄件人 省市区
-        Area area2 = order.getSendArea();
-        Area persistArea = areaDao.findByProvinceAndCityAndDistrict(area2.getProvince(), area2.getCity(), area2.getDistrict());
+        Area persistArea = areaDao.findByProvinceAndCityAndDistrict(order.getSendArea().getProvince(), order.getSendArea().getCity(), order.getSendArea().getDistrict());
         // 收件人 省市区
-        Area recArea = order.getSendArea();
         Area persistRecArea = areaDao
-                .findByProvinceAndCityAndDistrict(recArea.getProvince(),
-                        recArea.getCity(), recArea.getDistrict());
+                .findByProvinceAndCityAndDistrict(order.getRecArea().getProvince(),
+                        order.getRecArea().getCity(), order.getRecArea().getDistrict());
         //查询出来后替换掉Order中那些没得id的Area
         order.setSendArea(persistArea);
         order.setRecArea(persistRecArea);
@@ -123,14 +124,18 @@ public class OrderServiceImpl implements OrderService {
         //基于address输入的详细路径匹配crm所存储的定区进行匹配;
         String fixedAreaId = WebClient.create(Constans.CRM_MANAGEMENT_URL + "/services/customer/findFixedAreaIdByAddress?address=" + order.getSendAddress()).accept(MediaType.APPLICATION_JSON).get(String.class);
         //判断是否为空;
-        if (fixedAreaId == null) {
+        if (fixedAreaId != null) {
             //不是空的话通过定区查询快递员
-            Courier courier = fixedAreaDao.findOne(fixedAreaId).getCouriers().iterator().next();
-            //将查询到的快递员对象保存进订单,生成工单,发送短信;
-            saveOrder(order, courier);
-            generateWorkBill(order);
-            //发送短信
-            return;
+            Iterator<Courier> iterator = fixedAreaDao.findOne(fixedAreaId).getCouriers().iterator();
+            if(iterator.hasNext()){
+                Courier courier = iterator.next();
+                //将查询到的快递员对象保存进订单,生成工单,发送短信;
+                saveOrder(order, courier);
+                //发送短信
+                generateWorkBill(order);
+                return;
+            }
+
         }
         //如果没有分单成功;
         //得到收件人地址;
@@ -148,9 +153,8 @@ public class OrderServiceImpl implements OrderService {
                     if(courier!=null){
                         //得到快递员
                         saveOrder(order, courier);
-                        //生成工单
+                        //生成工单//发送短信
                         generateWorkBill(order);
-                        //发送短信
                         return;
                     }
                 }
@@ -160,5 +164,11 @@ public class OrderServiceImpl implements OrderService {
         //都没分单成功,则将进入人工分单;
         order.setOrderType("2");
         orderDao.save(order);
+    }
+
+    @Override
+    public Order findByOrderNum(String orderNum) {
+        Order order=orderDao.findByOrderNum(orderNum);
+        return order;
     }
 }

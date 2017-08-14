@@ -13,4 +13,6 @@ public interface OrderService {
     @Consumes({ "application/xml", "application/json"})
     @Produces({ "application/xml", "application/json" })
     void add(Order order);
+
+    Order findByOrderNum(String orderNum);
 }
