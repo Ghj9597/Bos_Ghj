@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 
 import cn.itcast.bos.domain.base.Area;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldIndex;
@@ -33,6 +34,7 @@ public class WayBill implements Serializable {
 	@Column(name = "C_WAY_BILL_NUM", unique = true)
 	@Field(index = FieldIndex.not_analyzed, store = true, type = FieldType.String)
 	private String wayBillNum; // 运单编号
+
 	@OneToOne
 	@JoinColumn(name = "C_ORDER_ID")
 	private Order order; // 订单信息
@@ -143,7 +145,7 @@ public class WayBill implements Serializable {
 	public void setWayBillNum(String wayBillNum) {
 		this.wayBillNum = wayBillNum;
 	}
-
+	@JsonIgnore
 	public Order getOrder() {
 		return order;
 	}

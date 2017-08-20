@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
 import cn.itcast.bos.domain.base.Standard;
@@ -60,8 +61,8 @@ public class StandardAction extends ActionSupport implements ModelDriven<Standar
 	@Action(value="findAll",results={@Result(name="success",type="json")})
 	public String findAll(){
 		System.out.println("执行到了");
-		PageRequest pageRequest=new PageRequest(page-1,rows);
-		Page<Standard> p=standardService.findAll(pageRequest);
+		Pageable pageable=new PageRequest(page-1,rows);
+		Page<Standard> p=standardService.findAll(pageable);
 		Map<String,Object> map=new HashMap<String, Object>();
 		map.put("total",p.getTotalElements());
 		map.put("rows",p.getContent());

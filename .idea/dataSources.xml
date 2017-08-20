@@ -4,7 +4,6 @@
     <data-source source="LOCAL" name="@localhost" uuid="e08bb03e-59d8-441a-a1b8-9ae76455792b">
       <driver-ref>oracle</driver-ref>
       <synchronize>true</synchronize>
-      <auto-commit>false</auto-commit>
       <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
       <jdbc-url>jdbc:oracle:thin:@localhost:1521:orcl</jdbc-url>
     </data-source>
@@ -12,6 +11,12 @@
       <driver-ref>oracle</driver-ref>
       <synchronize>true</synchronize>
       <auto-commit>false</auto-commit>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@localhost:1521:orcl</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="BOS_DATASOURCE" uuid="715d8883-121f-4e0b-9d0f-789819940468">
+      <driver-ref>oracle</driver-ref>
+      <synchronize>true</synchronize>
       <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
       <jdbc-url>jdbc:oracle:thin:@localhost:1521:orcl</jdbc-url>
     </data-source>

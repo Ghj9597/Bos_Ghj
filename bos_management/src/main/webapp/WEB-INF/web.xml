@@ -21,6 +21,14 @@
 		<filter-name>shiroFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	<!--<filter>
+	<filter-name>OpenEntityManagerInViewFilter</filter-name>
+	<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+</filter>
+	<filter-mapping>
+		<filter-name>OpenEntityManagerInViewFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>-->
 	<!-- 配置Struts2过滤器 -->
 	<filter>
 		<filter-name>StrutsPrepareAndExecuteFilter</filter-name>

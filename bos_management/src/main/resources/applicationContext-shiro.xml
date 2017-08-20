@@ -1,60 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:task="http://www.springframework.org/schema/task"
-	xsi:schemaLocation="
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/data/jpa 
-		http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
-	<!-- 配置Shiro核心Filter  -->
-	<bean id="shiroFilter"
-		  class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-		<!-- 安全管理器 -->
-		<property name="securityManager" ref="securityManager" />
-		<!-- 未认证，跳转到哪个页面  -->
-		<property name="loginUrl" value="/login.html" />
-		<!-- 登录页面页面 -->
-		<property name="successUrl" value="/index.html" />
-		<!-- 认证后，没有权限跳转页面 -->
-		<property name="unauthorizedUrl" value="/unauthorized.html" />
-		<!-- shiro URL控制过滤器规则  -->
-		<property name="filterChainDefinitions">
-			<value>
-				/login.html* = anon
-				/validatecode.jsp* = anon
-				/user/login*=anon
-				/css/** = anon
-				/js/** = anon
-				/images/** = anon
-				/services/** = anon
-				/pages/base/courier.html* = perms[courier:list]
-				/pages/base/area.html* = roles[base]
-				/** = authc
-			</value>
-		</property>
-	</bean>
-	<!-- 安全管理器  -->
-	<bean id="securityManager"
-		  class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-		<!--将我们的Realm对象配置进入安全管理器中-->
-		<property name="realm" ref="BosRealm"/>
-	</bean>
-	<bean id="lifecycleBeanPostProcessor"
-		  class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
-	<!-- 开启shiro注解模式  -->
-	<bean
-			class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
-			depends-on="lifecycleBeanPostProcessor" >
-		<property name="proxyTargetClass" value="true" />
-	</bean>
+		http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/cache
+		http://www.springframework.org/schema/cache/spring-cache.xsd">
+    <!-- 配置Shiro核心Filter  -->
+    <bean id="shiroFilter"
+          class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- 安全管理器 -->
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 未认证，跳转到哪个页面  -->
+        <property name="loginUrl" value="/login.html"/>
+        <!-- 登录页面页面 -->
+        <property name="successUrl" value="/index.html"/>
+        <!-- 认证后，没有权限跳转页面 -->
+        <property name="unauthorizedUrl" value="/unauthorized.html"/>
+        <!-- shiro URL控制过滤器规则  -->
+        <property name="filterChainDefinitions">
+            <value>
+                /login.html* = anon
+                /validatecode.jsp* = anon
+                /user/login*=anon
+                /css/** = anon
+                /js/** = anon
+                /images/** = anon
+                /services/** = anon
+                /pages/base/courier.html* = perms[courier:list]
+                /pages/base/area.html* = roles[base]
+                /** = authc
+            </value>
+        </property>
+    </bean>
+    <!-- 安全管理器  -->
+    <bean id="securityManager"
+          class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!--将我们的Realm对象配置进入安全管理器中-->
+        <property name="realm" ref="bosRealm"/>
+        <property name="cacheManager" ref="shiroEhCacheManager"/>
+    </bean>
+    <bean id="lifecycleBeanPostProcessor"
+          class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    <!-- 开启shiro注解模式  -->
+    <bean
+            class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+            depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
 
-	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-		<property name="securityManager" ref="securityManager"/>
-	</bean>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+    <!--配置earche缓存-->
+    <!--EhCacheManagerFactoryBean是Spring来生成EhCacheManager-->
+    <bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <!--只需要我们将配置文件位置注入进去-->
+        <property name="configLocation" value="classpath:ehcache.xml"></property>
+    </bean>
+    <!--shiro中有一个类EhCacheManager,它描述了shiro配置进入缓存时哪些数据作为key-哪些数据作为value-->
+    <bean id="shiroEhCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManager" ref="ehcacheManager"></property>
+    </bean>
+    <!--将bosRealm配置为bean的好处是可以进行Spring的参数注入-->
+    <bean id="bosRealm" class="cn.itcast.bos.system.BosRealm">
+        <!--我们为它注入授权数据缓存区的名称,告诉它保存在哪个缓存区中-->
+        <property name="authenticationCacheName" value="shiro"></property>
+    </bean>
+    <!--开启Spring对缓存注解的支持-->
+    <cache:annotation-driven cache-manager="cacheManager"></cache:annotation-driven>
+
+    <bean name="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="ehcacheManager"></property>
+    </bean>
 </beans>

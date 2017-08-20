@@ -21,5 +21,15 @@
       <user-name>CRM</user-name>
       <introspection-schemas>*:CRM</introspection-schemas>
     </data-source>
+    <data-source name="BOS_DATASOURCE" uuid="715d8883-121f-4e0b-9d0f-789819940468">
+      <database-info product="Oracle" version="Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production&#10;With the Partitioning, OLAP, Data Mining and Real Application Testing options" jdbc-version="4.0" driver-name="Oracle JDBC driver" driver-version="12.1.0.2.0">
+        <extra-name-characters>$#</extra-name-characters>
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>BOS</user-name>
+      <introspection-schemas>*:BOS</introspection-schemas>
+    </data-source>
   </component>
 </project>

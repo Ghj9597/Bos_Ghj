@@ -7,4 +7,7 @@
   </parent>
   <artifactId>bos_domain</artifactId>
   <name>bos_domain</name>
+  <build>
+    <finalName>bos_domain</finalName>
+  </build>
 </project>

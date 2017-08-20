@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by 犹良 on 2017/8/13 0013.
  */
-@Service("BosRealm")
+
 public class BosRealm extends AuthorizingRealm {
     @Autowired
     private PermissionService permissionService;

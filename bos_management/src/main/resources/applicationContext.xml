@@ -62,9 +62,8 @@
 				<entry key="hibernate.bytecode.use_reflection_optimizer" value="true" />
 				<entry key="hibernate.cache.use_second_level_cache" value="false" />
 				<entry key="hibernate.cache.use_query_cache" value="false" />
-<!--
-				<entry key="hibernate.hbm2ddl.auto" value="create"></entry>
--->
+				<!--<entry key="hibernate.hbm2ddl.auto" value="create"></entry>-->
+
 			</map>
 		</property>
 	</bean>
@@ -79,7 +78,7 @@
 	<!-- 开启Spring-data-Jpa的包扫描 -->
 	<jpa:repositories base-package="cn.itcast"></jpa:repositories>
 	<import resource="applicationContext-webService.xml"/>
-	<import resource="applicationContext-quartz.xml"/>
+	<!--<import resource="applicationContext-quartz.xml"/>-->
 	<import resource="applicationContext-mq.xml"/>
 	<import resource="applicationContext-elasticsearch.xml"/>
 	<import resource="applicationContext-shiro.xml"/>

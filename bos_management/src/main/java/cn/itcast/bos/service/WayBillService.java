@@ -15,4 +15,5 @@ public interface WayBillService {
 
 
     WayBill findByWayBillNum(String wayBillNum);
+    void synchro();
 }
